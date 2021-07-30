@@ -3,4 +3,4 @@
 This is hanziKR Official web.
 ## License
 GNU GENERAL PUBLIC LICENSE v3\
-Learn more : https://hanzikr.github.io
+Learn more : https://hanzikr.github.io/LICENSE
