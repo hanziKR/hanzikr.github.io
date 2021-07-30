@@ -1,10 +1,12 @@
 :root {
-    --bgColor: #242424;
+    --bgColor: hsl(221, 21%, 16%);
 }
 * {
     margin: 0 auto;
     text-align: center;
     font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
 }
 body { 
     margin: 0; 
@@ -18,12 +20,15 @@ body {
     min-width: 500px;
 }
 .regular {
+    font-size: 25px;
     font-weight: 400;
 }
 .medium {
+    font-size: 35px;
     font-weight: 500;
 }
 .bold {
+    font-size: 50px;
     font-weight: 700;
 }
 p {
