@@ -1,0 +1,85 @@
+:root {
+    --bgColor: #181a1b;
+    --normalColor: #64aef1;
+    --lightColor: #2791c8;
+    --darkColor: #207aa7;
+}
+html {
+    background: var(--bgColor);
+    color: var(--normalColor);
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+}
+#container {
+    width: 1130px;
+    margin: 0 auto;
+    margin-top: 32px;
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+} 
+.light-text {
+    color: var(--lightColor);
+}
+.light-button {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--darkColor);
+    font-size: 20px;
+    border: var(--darkColor) 0.125em solid;
+    padding: 0.25em 1em;
+    border-radius: 0.5em;
+}
+.light-button:hover,
+.light-button:focus {
+    background-color: var(--darkColor);
+    color: var(--bgColor);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--normalColor);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--lightColor);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: var(--darkColor);
+}
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    background-color: var(--normalColor);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
