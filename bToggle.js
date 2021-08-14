@@ -22,7 +22,6 @@ const Btoggle = (() => {
     };
     const setMode = (sBfilter) => {
         bfilter = sBfilter;
-        console.log(bfilter);
         Gcookie.setCookie("bfilter", (bfilter ? "1" : "0"));
         applyMode();
     };
