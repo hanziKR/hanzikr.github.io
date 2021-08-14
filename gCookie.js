@@ -14,7 +14,7 @@ const Gcookie = (() => {
         }
     }
     const setCookie = (key, data) => {
-        document.cookie = key + "=" + encodeURIComponent(data) + ";expires=Fri, 31 Dec 9999 00:00:00 UTC;domain=" + "hanzikr.github.io";
+        document.cookie = key + "=" + encodeURIComponent(data) + ";expires=Fri, 31 Dec 9999 00:00:00 UTC;domain=" + ".hanzikr.github.io";
     }
     return {
         getCookieArray : getCookieArray,
