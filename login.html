@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="stylesheet preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=block">
+        <link rel="stylesheet preload" as="style" href="/css/style.css">
+        <title>hanziKR's web!</title>
+        <script src="/gCookie.js"></script>
+        <script src="/bToggle.js"></script>
+        <script src="/filter.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js"></script>
+    </head>
+    <script>
+        window.onload = (event) => {
+            const form = document.querySelector("form");
+            
+            form.onsubmit = (event) => {
+                event.preventDefault();
+                const form = document.querySelector("form");
+                const id = event.target.id.value;
+                const passwordHash = String(CryptoJS.SHA256(event.target.password.value));
+                
+                const xmlHttp = new XMLHttpRequest();
+                xmlHttp.onload = () => { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                        console.log(xmlHttp.responseText);
+                    }
+                };
+                let params = "";
+                params += "id=" + id + "&";
+                params += "password=" + passwordHash;
+                
+                xmlHttp.open("POST", "https://hanzikr.kro.kr/login", true);
+                xmlHttp.send(params);
+            };
+        }
+    </script>
+    <body>
+        <div id="container">
+            <span style="font-weight:600; font-size:20px">Toggle blue light filter</span>
+            <label class="switch">
+                <input type="checkbox" id="btoggle" onclick="Btoggle.toggleMode();">
+                <span class="slider round"></span>
+            </label>
+            <div style="margin-bottom:30px">
+                <a href="/">
+                    <img src="logo.svg" id="logo" width="150px" height="150px" alt="logo">
+                </a>
+            </div>
+            <form accept-charset="utf-8" id="form" method="post">
+                <fieldset style="width:150px">
+                    <legend style="font-size: 25px; margin-bottom: 10px">LOGIN</legend>
+                    <p style="font-size: 20px;">ID</p>
+                    <input type="text" class="light-input" name="id" required/>
+                    <p style="font-size: 20px;">PASSWORD</p>
+                    <input type="password" class="light-input" name="password" required/>
+                    <input type="submit" class="light-button" style="margin-top: 15px" name="submit" value="확인" required/>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>

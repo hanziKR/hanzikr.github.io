@@ -4,14 +4,16 @@
     --lightColor: #2791c8;
     --darkColor: #207aa7;
 }
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+}
 html {
     background: var(--bgColor);
     color: var(--normalColor);
     margin: 0;
     padding: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 500;
-    font-size: 25px;
 }
 #container {
     width: 1130px;
@@ -37,9 +39,24 @@ p {
     border: var(--darkColor) 0.125em solid;
     padding: 0.25em 1em;
     border-radius: 0.5em;
+    outline: none;
 }
 .light-button:hover,
 .light-button:focus {
+    background-color: var(--darkColor);
+    color: var(--bgColor);
+}
+.light-input {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--darkColor);
+    font-size: 20px;
+    border: var(--darkColor) 0.125em solid;
+    padding: 0.25em 1em;
+    border-radius: 0.5em;
+    outline: none;
+}
+.light-input:hover,
+.light-input:focus {
     background-color: var(--darkColor);
     color: var(--bgColor);
 }
@@ -86,4 +103,18 @@ input:checked + .slider:before {
 }
 .slider.round:before {
     border-radius: 50%;
+}
+
+.list {
+    text-align: left;
+}
+.a-button {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--normalColor);
+}
+fieldset {
+    border: var(--normalColor) 0.125em solid;
+    border-radius: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
 }
