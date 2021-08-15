@@ -11,6 +11,7 @@
         <script src="/bToggle.js"></script>
         <script src="/filter.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <script>
         window.onload = (event) => {
@@ -33,6 +34,8 @@
                 params += "password=" + passwordHash;
                 
                 xmlHttp.open("POST", "https://hanzikr.kro.kr/login", true);
+
+                xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xmlHttp.send(params);
             };
         }
@@ -56,6 +59,7 @@
                     <input type="text" class="light-input" name="id" required/>
                     <p style="font-size: 20px;">PASSWORD</p>
                     <input type="password" class="light-input" name="password" required/>
+                    <div class="g-recaptcha" data-theme="dark" data-sitekey="6Lf4W_8bAAAAAKOS3Viigk9Sdd4LuD-2-upPkaFv"></div>
                     <input type="submit" class="light-button" style="margin-top: 15px" name="submit" value="확인" required/>
                 </fieldset>
             </form>

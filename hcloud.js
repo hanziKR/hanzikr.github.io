@@ -7,7 +7,7 @@ const Hcloud = (() => {
     };
 })();
 
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', () => {
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.onload = () => { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
@@ -28,4 +28,4 @@ window.onload = () => {
     };
     xmlHttp.open("GET", "https://hanzikr.kro.kr/hcloud/list", true);
     xmlHttp.send();
-};
+});

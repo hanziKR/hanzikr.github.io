@@ -1,4 +1,4 @@
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', () => {
     Gcookie.loadCookieArray();
     
     if (Gcookie.findCookie("bfilter") == "1") {
@@ -7,4 +7,4 @@ window.onload = () => {
 
     const btoggle = document.getElementById("btoggle");
     btoggle.checked = Btoggle.getMode();
-};
+});
