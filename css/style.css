@@ -33,6 +33,7 @@ p {
     color: var(--lightColor);
 }
 .light-button {
+    cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
     color: var(--darkColor);
     font-size: 20px;
