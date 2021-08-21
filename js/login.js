@@ -48,8 +48,10 @@ window.addEventListener("DOMContentLoaded", () => {
                     }
                 }
                 else {
-                    Gcookie.setCookie("udata", JSON.stringify(response.data));
-                    
+                    const expires = response.data.data.expires;
+                    Gcookie.setCookie("session", response.data.session, expires);
+                    Gcookie.setCookie("uid", response.data.data.id, expires);
+
                     const url = new URL(window.location.href);
                     const c = url.searchParams.get("c");
 
