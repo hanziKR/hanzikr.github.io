@@ -20,7 +20,8 @@ html {
     width: 1130px;
     margin: 0 auto;
     margin-top: 32px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 a {
     text-decoration: none;
@@ -98,4 +99,20 @@ fieldset {
 .g-recaptcha {
     transform:scale(1.1);
     -webkit-transform:scale(1.1);
+}
+.right {
+    display: flex;
+    justify-content: flex-end;
+}
+.left {
+    display: flex;
+    justify-content: flex-start;
+}
+.center {
+    display: flex;
+    justify-content: center;
+}
+.column {
+    flex-direction: column;
+    text-align: center;
 }

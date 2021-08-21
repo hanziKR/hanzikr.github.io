@@ -13,8 +13,8 @@ const Gcookie = (() => {
             if (cookieArray[i].indexOf(_key) == 0) return cookieArray[i].slice(_key.length, cookieArray[i].length);
         }
     }
-    const setCookie = (key, data) => {
-        document.cookie = key + "=" + encodeURIComponent(data) + ";expires=Fri, 31 Dec 9999 00:00:00 UTC;domain=" + ".hanzikr.github.io";
+    const setCookie = (key, data, expires) => {
+        document.cookie = key + "=" + encodeURIComponent(data) + ";secure=true;expires=" + expires || "Sat, 1 Jan 2000 00:00:00 GMT";
     }
     return {
         getCookieArray : getCookieArray,

@@ -1,12 +1,3 @@
-const Hcloud = (() => {
-    const fileDownload = (fname) => {
-        window.open("https://hanzikr.kro.kr/hcloud/down?name=" + fname, '_blank');
-    }
-    return {
-        fileDownload : fileDownload
-    };
-})();
-
 window.addEventListener("DOMContentLoaded", () => {
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.onload = () => { 
@@ -18,8 +9,10 @@ window.addEventListener("DOMContentLoaded", () => {
                 const content = document.createElement("a");
                 const fname = list[i];
 
-                content.textContent = fname;
-                content.setAttribute("onclick", 'Hcloud.fileDownload("' + fname + '")');
+                content.textContent = decodeURIComponent(fname);
+                content.onclick = () => {
+                    window.open("https://hanzikr.kro.kr/hcloud/down?name=" + fname, '_blank');
+                };
                 
                 div.appendChild(content);
                 listDiv.appendChild(div);
