@@ -14,7 +14,7 @@
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             const form = document.querySelector("form");
-
+            
             form.onsubmit = (event) => {
                 event.preventDefault();
 
@@ -38,6 +38,10 @@
                                 }
                                 case "recaptcha": {
                                     message.textContent = "로봇이 아님을 증명하지 못했습니다";
+                                    break;
+                                }
+                                case "exist": {
+                                    message.textContent = "다른 유저가 사용중인 id입니다";
                                     break;
                                 }
                                 default: {
@@ -65,7 +69,7 @@
                 params += "id=" + id + "&";
                 params += "password=" + passwordHash;
 
-                xmlHttp.open("POST", "https://hanzikr.kro.kr/login", true);
+                xmlHttp.open("POST", "https://hanzikr.kro.kr/signup", true);
 
                 xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xmlHttp.send(params);
@@ -81,14 +85,14 @@
             </div>
             <form id="form">
                 <fieldset style="width:450px">
-                    <legend style="font-size: 25px; margin-bottom: 5px">LOGIN</legend>
+                    <legend style="font-size: 25px; margin-bottom: 5px">SIGNUP</legend>
                     <p style="font-size: 15px;" class="light" id="message"></p>
-                    <label for="id" style="font-size: 20px;" class="llabel">ID</label>
+                    <label for="id" style="font-size: 20px;" class="llabel">ID(영어, 숫자만 5~20자)</label>
                     <input type="text" class="light-input" style="width:100%" name="id" id="id" maxlength="20" required/>
-                    <label for="password" style="font-size: 20px;" class="llabel">PASSWORD</label>
+                    <label for="password" style="font-size: 20px;" class="llabel">PASSWORD(제한없음)</label>
                     <input type="password" class="light-input" style="width:100%" name="password" id="password" required/>
                     <div class="g-recaptcha" data-theme="dark" data-sitekey="6Lf4W_8bAAAAAKOS3Viigk9Sdd4LuD-2-upPkaFv"></div>
-                    <input type="submit" class="light-button" style="margin-top:10px; width:100%" value="로그인"/>
+                    <input type="submit" class="light-button" style="margin-top:10px; width:100%" value="회원가입"/>
                 </fieldset>
             </form>
         </div>

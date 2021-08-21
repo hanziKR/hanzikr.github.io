@@ -7,7 +7,7 @@ const Hcloud = (() => {
     };
 })();
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener("DOMContentLoaded", () => {
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.onload = () => { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
