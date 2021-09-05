@@ -5,7 +5,7 @@ const Gcookie = (() => {
         return cookieArray;
     }
     const loadCookieArray = () => {
-        cookieArray = document.cookie.split(";");
+        cookieArray = document.cookie.replace(" ", "").split(";");
     }
     const findCookie = (key) => {
         const _key = key + "=";
@@ -16,10 +16,14 @@ const Gcookie = (() => {
     const setCookie = (key, data, expires) => {
         document.cookie = key + "=" + encodeURIComponent(data) + ";secure=true;expires=" + expires || "Sat, 1 Jan 2000 00:00:00 GMT";
     }
+    const deleteCookie = (key) => {
+        document.cookie = key + "=;expires=Sat, 1 Jan 2000 00:00:00 GMT";
+    }
     return {
         getCookieArray : getCookieArray,
         loadCookieArray : loadCookieArray,
         findCookie : findCookie,
-        setCookie : setCookie
+        setCookie : setCookie,
+        deleteCookie: deleteCookie
     };
 })();
