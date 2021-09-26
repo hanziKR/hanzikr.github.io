@@ -29,44 +29,41 @@ window.addEventListener("DOMContentLoaded", () => {
         const xmlHttp = new XMLHttpRequest();
         xmlHttp.onload = () => {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                const response = xmlHttp.response;
-                console.log(response);
-                // if (!response.success) {
-                //     // switch (response.msg) {
-                //         // case "iorp": {
-                //             // message.textContent = "id나 password가 잘못되었습니다";
-                //             // break;
-                //         // }
-                //         // case "recaptcha": {
-                //             // message.textContent = "로봇이 아님을 증명하지 못했습니다";
-                //             // break;
-                //         // }
-                //         // default: {
-                //             // message.textContent = "알 수 없는 오류가 발생했습니다";
-                //             // break;
-                //         // }
-                //     // }
-                // }
-                // else {
-                //     const expires = response.data.data.expires;
-                //     Gcookie.setCookie("session", response.data.session, expires);
-                //     Gcookie.setCookie("uid", response.data.data.id, expires);
+                const response = JSON.parse(xmlHttp.response);
 
-                //     const url = new URL(window.location.href);
-                //     const c = url.searchParams.get("c");
+                if (!response.success) {
+                    switch (response.msg) {
+                        case "iorp": {
+                            message.textContent = "id나 password가 잘못되었습니다";
+                            break;
+                        }
+                        default: {
+                            message.textContent = "알 수 없는 오류가 발생했습니다";
+                            break;
+                        }
+                    }
+                }
+                else {
+                    const expires = response.data.data.expires;
+                    
+                    Gcookie.setCookie("session", response.data.session, expires);
+                    Gcookie.setCookie("uid", response.data.data.id, expires);
 
-                //     if (!c || !c.startsWith("https://hanzikr.github.io") || !c.startsWith("localhost")) {
-                //         window.location.href = "/";
-                //     }
-                //     else {
-                //         window.location.href = c;
-                //     }
-                // }
+                    const url = new URL(window.location.href);
+                    const c = url.searchParams.get("c");
+
+                    if (!c || !c.startsWith("https://hanzikr.github.io") || !c.startsWith("localhost")) {
+                        window.location.href = "/";
+                    }
+                    else {
+                        window.location.href = c;
+                    }
+                }
             }
         };
         let params = "";
         params += "id=" + id + "&";
-        params += "passwordHash=" + passwordHash;
+        params += "password=" + passwordHash;
 
         xmlHttp.open("POST", "https://hanzikr.kro.kr/login", true);
 

@@ -16,14 +16,9 @@ window.addEventListener("DOMContentLoaded", () => {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                 const response = JSON.parse(xmlHttp.response);
                 if (!response.success) {
-                    grecaptcha.reset();
                     switch (response.msg) {
                         case "iorp": {
                             message.textContent = "id나 password가 잘못되었습니다";
-                            break;
-                        }
-                        case "recaptcha": {
-                            message.textContent = "로봇이 아님을 증명하지 못했습니다";
                             break;
                         }
                         case "exist": {
@@ -37,7 +32,10 @@ window.addEventListener("DOMContentLoaded", () => {
                     }
                 }
                 else {
-                    Gcookie.setCookie("udata", JSON.stringify(response.data));
+                    const expires = response.data.data.expires;
+                    
+                    Gcookie.setCookie("session", response.data.session, expires);
+                    Gcookie.setCookie("uid", response.data.data.id, expires);
                     
                     const url = new URL(window.location.href);
                     const c = url.searchParams.get("c");
@@ -51,9 +49,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 }
             }
         };
-        const recres = event.target["g-recaptcha-response"].value;
         let params = "";
-        params += "g-recaptcha-response=" + recres + "&";
         params += "id=" + id + "&";
         params += "password=" + passwordHash;
 
