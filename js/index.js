@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
     Gcookie.loadCookieArray();
-    const uid = Gcookie.findCookie("uid");
+    const id = Gcookie.findCookie("id");
 
     const first = document.createElement("a");
     const second = document.createElement("a");
@@ -9,12 +9,12 @@ window.addEventListener("DOMContentLoaded", () => {
     second.setAttribute("class", "light-button");
     first.setAttribute("font-size", "15px");
     second.setAttribute("font-size", "15px");
-    if (uid) {
-        first.textContent = "Hello! Lv.1 " + uid;
+    if (id) {
+        first.textContent = "Hello! Lv.1 " + id;
         first.href = "info";
         second.textContent = "Logout";
         second.onclick = () => {
-            Gcookie.deleteCookie("uid");
+            Gcookie.deleteCookie("id");
             Gcookie.deleteCookie("session");
             window.location.reload();
         };

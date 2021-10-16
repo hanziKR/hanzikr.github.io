@@ -1,46 +1,119 @@
-window.addEventListener("DOMContentLoaded", () => {
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.onload = () => {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            const list = JSON.parse(xmlHttp.responseText);
+window.addEventListener("DOMContentLoaded", async () => {
+    Gcookie.loadCookieArray();
+    
+    const userData = { id: Gcookie.findCookie("id"), session: Gcookie.findCookie("session") };
+
+    const onread = function(ws) {
+        return new Promise(function(resolve, reject) {
+            ws.onmessage = function (event) {
+                resolve(event.data);
+            };
+            ws.onclose = function() {
+                reject();
+            };
+            ws.onerror = function(error) {
+                reject(error);
+            };
+        });
+    };
+    const onopen = function(ws) {
+        return new Promise(function(resolve, reject) {
+            ws.onopen = function() {
+                resolve();
+            };
+        });
+    };
+
+    // ws.send();
+
+    const refresh = async function() {
+        let ws = new WebSocket("wss://hanzikr.kro.kr");
+        await onopen(ws);
+
+        try {
+            let data;
+
+            ws.send(JSON.stringify({ head: "session", body: userData }));
+            data = await onread(ws);
+            if (data == "fail") throw 1;
+
+            ws.send(JSON.stringify({ head: "ls" }));
+            data = await onread(ws);
+
+            if (data == "fail") throw 1;
+            data = await onread(ws);
+
+            const list = JSON.parse(data);
             const listDiv = document.getElementById("list");
+            
+            while (listDiv.lastElementChild) {
+                listDiv.removeChild(listDiv.lastElementChild);
+            }
             for (let i = 0; i < list.length; i++) {
                 const div = document.createElement("div");
                 const content = document.createElement("a");
                 const fname = list[i];
 
-                content.textContent = decodeURIComponent(fname);
+                content.textContent = fname;
                 content.onclick = () => {
                     window.open("https://hanzikr.kro.kr/hcloud/down?name=" + fname, '_blank');
                 };
                 div.appendChild(content);
                 listDiv.appendChild(div);
             }
+        } catch (e) {
+            console.log(e);
         }
+        ws.close();
     };
-    Gcookie.loadCookieArray();
-    
-    let params = "";
-    params += "uid=" + Gcookie.findCookie("uid") + "&";
-    params += "session=" + Gcookie.findCookie("session") + "&";
-    params += "path=" + encodeURIComponent("/");
-    xmlHttp.open("POST", "https://hanzikr.kro.kr/hcloud/list", true);
-    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlHttp.send(params);
+    refresh();
 
-    const ws = new WebSocket("wss://hanzikr.kro.kr");
-    ws.onopen = function() {
-        console.log("웹소켓서버와 연결 성공");
-        ws.send("hello!");
-    };
-    ws.onmessage = function(event) {
-        console.log(`서버 웹소켓에게 받은 데이터: ${event.data}`);
+    document.getElementById("file").addEventListener("change", function() {
+        document.getElementById("dropContainer").textContent = this.files[0].name;
+    });
+    document.getElementById("refresh").onclick = function() {
+        refresh();
     }
-    ws.onclose = function() {
-        console.log("서버 웹소켓 연결 종료");
-    }
-    ws.onerror = function(event) {
-        console.log(event)
+
+    const form = document.getElementById("form");
+
+    form.onsubmit = async (event) => {
+        event.preventDefault();
+        let reader = new FileReader();
+
+        reader.onload = async function() {
+            let ws = new WebSocket("wss://hanzikr.kro.kr");
+            await onopen(ws);
+
+            try {
+                let data;
+
+                ws.send(JSON.stringify({ head: "session", body: userData }));
+                data = await onread(ws);
+                if (data == "fail") throw 1;
+
+                ws.send(JSON.stringify({ head: "upload", body: { name: file.files[0].name } }));
+                
+                data = await onread(ws);
+                if (data == "fail") throw 1;
+                ws.send(reader.result);
+
+                data = await onread(ws);
+                if (data == "fail") throw 1;
+                alert("파일이 업로드되었습니다!");
+                refresh();
+            } catch (e) {
+                console.log(e);
+            }
+            ws.close();
+        };
+
+        reader.readAsBinaryString(file.files[0]);
+
+        // // const fileURL = window.URL.createObjectURL(file.value);
+        // // console.log(fileURL);
+        // // URL.revokeObjectURL(fileURL);
+        // const file = event.target.file;
     }
     // webSocket.close();
 });
