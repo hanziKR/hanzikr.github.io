@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     
     // audio.src = "BEAUZ&Momo.mp3";
     // audio.src = "sample.mp3";
-    audio.src = "music/Goodbye-Declaration";
+    audio.src = "music/Goodbye-Declaration.mp3";
     audio.load();
 
     const cubeVertices = [
