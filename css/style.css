@@ -1,8 +1,8 @@
 :root {
     --bgColor: #181a1b;
-    --lightColor: #64aef1;
-    --normalColor: #2791c8;
-    --darkColor: #207aa7;
+    --lightColor: #74aadd;
+    --normalColor: #53b9ec;
+    --darkColor: #1f78a5;
 }
 * {
     font-family: 'Noto Sans KR', sans-serif;
@@ -38,7 +38,7 @@ p {
 .light-button {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
-    color: var(--darkColor);
+    color: var(--normalColor);
     font-size: 20px;
     border: var(--darkColor) 0.125em solid;
     padding: 0.25em 1em;

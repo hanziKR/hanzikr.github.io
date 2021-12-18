@@ -1,4 +1,4 @@
-const Gcookie = (() => {
+const gcookie = function() {
     let cookieArray = []; 
 
     const getCookieArray = () => {
@@ -26,4 +26,4 @@ const Gcookie = (() => {
         setCookie : setCookie,
         deleteCookie: deleteCookie
     };
-})();
+}();

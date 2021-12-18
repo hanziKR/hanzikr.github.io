@@ -1,6 +1,6 @@
-window.addEventListener("DOMContentLoaded", () => {
-    Gcookie.loadCookieArray();
-    const id = Gcookie.findCookie("id");
+hcloudapi.domloaded(async function() {
+    gcookie.loadCookieArray();
+    const id = gcookie.findCookie("id");
 
     const first = document.createElement("a");
     const second = document.createElement("a");
@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
     first.setAttribute("font-size", "15px");
     second.setAttribute("font-size", "15px");
     if (id) {
-        first.textContent = "Hello! Lv.1 " + id;
+        first.textContent = "Hello! " + id;
         first.href = "info";
         second.textContent = "Logout";
         second.onclick = () => {

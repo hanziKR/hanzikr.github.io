@@ -7,8 +7,10 @@
         <link rel="stylesheet preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=block">
         <link rel="stylesheet preload" as="style" href="/css/style.css">
         <title>hanziKR's web!</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js"></script>
-        <script src="/js/gCookie.js"></script>
+        <script src="/js/hcloudapi.js"></script>
+        <script src="/js/gcookie.js"></script>
+        <script src="/js/httpreq.js"></script>
+        <script src="/js/crypto.js"></script>
         <script src="/js/login.js"></script>
     </head>
     <body>
@@ -17,7 +19,7 @@
                 <a href="/" style="display:inline-block; margin-bottom:30px">
                     <img src="logo.svg" id="logo" width="150px" height="150px" alt="logo">
                 </a>
-                <form id="form" style="margin-bottom:30px;">
+                <form id="form" style="margin-bottom:30px;" autocomplete="off" spellcheck="false">
                     <fieldset style="width:450px">
                         <legend style="font-size: 25px; margin-bottom: 5px">LOGIN</legend>
                         <p style="font-size: 15px;" class="light" id="message"></p>
