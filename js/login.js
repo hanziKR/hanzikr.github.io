@@ -1,73 +1,44 @@
-window.addEventListener("DOMContentLoaded", () => {
-    const tosignup = document.getElementById("tosignup");
-    tosignup.onclick = (event) => {
+hcloudapi.domloaded(async function() {
+    const form = document.getElementById("form");
+
+    form.onsubmit = async function(event) {
         event.preventDefault();
+        
+        const message = document.getElementById("message");
+
+        const loginResponse = await hcloudapi.login(event.target.id.value, event.target.password.value);
+        
+        if (!loginResponse.success) {
+            message.textContent = "Error : " + loginResponse.reason;
+            alert("!Error!");
+            return false;
+        }
+        
+        gcookie.setCookie("token", loginResponse.token);
 
         const url = new URL(window.location.href);
         const c = url.searchParams.get("c");
-
-        if (c) {
-            window.location.href = "/signup?c=" + encodeURIComponent(c);
+        
+        if (!c || !c.startsWith("https://hanzikr.github.io") || !c.startsWith("localhost")) {
+            window.location.href = "/";
         }
         else {
+            window.location.href = c;
+        }
+        return false;
+    };
+
+    
+    const tosignup = document.getElementById("tosignup");
+    tosignup.onclick = () => {
+        const url = new URL(window.location.href);
+        const c = url.searchParams.get("c");
+
+        if (!c || !c.startsWith("https://hanzikr.github.io") || !c.startsWith("localhost")) {
             window.location.href = "/signup";
         }
+        else {
+            window.location.href = "/signup?c=" + encodeURIComponent(c);
+        }
     }
-
-    const form = document.getElementById("form");
-
-    form.onsubmit = (event) => {
-        event.preventDefault();
-
-        const id = event.target.id.value.toLowerCase();
-        const password = event.target.password.value;
-        const message = document.getElementById("message");
-
-        message.textContent = "";
-
-        const passwordHash = String(CryptoJS.SHA256(password)).toUpperCase();
-        const xmlHttp = new XMLHttpRequest();
-        xmlHttp.onload = () => {
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                const response = JSON.parse(xmlHttp.response);
-
-                if (!response.success) {
-                    switch (response.msg) {
-                        case "iorp": {
-                            message.textContent = "id나 password가 잘못되었습니다";
-                            break;
-                        }
-                        default: {
-                            message.textContent = "알 수 없는 오류가 발생했습니다";
-                            break;
-                        }
-                    }
-                }
-                else {
-                    const expires = response.data.data.expires;
-                    
-                    Gcookie.setCookie("session", response.data.session, expires);
-                    Gcookie.setCookie("id", response.data.data.id, expires);
-
-                    const url = new URL(window.location.href);
-                    const c = url.searchParams.get("c");
-
-                    if (!c || !c.startsWith("https://hanzikr.github.io") || !c.startsWith("localhost")) {
-                        window.location.href = "/";
-                    }
-                    else {
-                        window.location.href = c;
-                    }
-                }
-            }
-        };
-        let params = "";
-        params += "id=" + id + "&";
-        params += "password=" + passwordHash;
-
-        xmlHttp.open("POST", "https://hanzikr.kro.kr/login", true);
-
-        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlHttp.send(params);
-    };
 });
